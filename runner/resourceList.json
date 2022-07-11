@@ -1,0 +1,58 @@
+{
+    "apiVersion": "config.kubernetes.io/v1alpha1",
+    "kind": "ResourceList",
+    "items": [
+        {
+            "apiVersion": "v1",
+            "kind": "ReplicationController",
+            "metadata": {
+                "name": "bob"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "app": "nginx"
+                },
+                "templates": {
+                    "metadata": {
+                        "name": "nginx",
+                        "labels": {
+                            "app": "nginx"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "name": "nginx",
+                                "image": "nginx",
+                                "ports": [
+                                    {
+                                        "containerPort": 80
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "example.com/v1",
+            "kind": "MyFoo",
+            "metadata": {
+                "name": "bob"
+            },
+            "spec": {}
+        }
+    ],
+    "functionConfig": {
+        "apiVersion": "v1",
+        "kind": "ConfigMap",
+        "metadata": {
+            "name": "fn-cfg"
+        },
+        "data": {
+            "namespace": "prod"
+        }
+    }
+}

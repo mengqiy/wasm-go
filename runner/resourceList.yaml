@@ -1,0 +1,29 @@
+apiVersion: config.kubernetes.io/v1alpha1
+kind: ResourceList
+items:
+  - apiVersion: v1
+    kind: ReplicationController
+    metadata:
+      namespace: ns
+      name: bob
+    spec:
+      replicas: 1
+      selector:
+        app: nginx
+      templates:
+        metadata:
+          name: nginx
+          labels:
+            app: nginx
+        spec:
+          containers:
+            - name: nginx
+              image: nginx
+              ports:
+                - containerPort: 80
+  - apiVersion: example.com/v1
+    kind: MyFoo
+    metadata:
+      namespace: ns
+      name: bob
+    spec: {}
